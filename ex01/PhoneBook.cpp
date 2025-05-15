@@ -37,9 +37,12 @@ void PhoneBook::searchContact() {
     printSeparator();
     int userIndex;
     while (true) {
-        std::cout << "Enter the index of the contact you want to search for: ";
+        std::cout << "Enter the index of the contact you want to search for (or enter -1 to exit): ";
         std::cin >> userIndex;
-        if (userIndex < 0 || userIndex >= this->index || userIndex >= 8) {
+        if (userIndex == -1) {
+            std::cout << "Exiting search..." << std::endl;
+            break;
+        } else if (userIndex < 0 || userIndex >= this->index || userIndex >= 8) {
             std::cout << "Invalid index. Try again." << std::endl;
         } else {
             this->contacts[userIndex].printContact();

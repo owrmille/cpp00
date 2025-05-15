@@ -5,6 +5,7 @@
 #include <string>
 
 class Contact {
+private:
     std::string firstName;
     std::string lastName;
     std::string nickname;
@@ -19,11 +20,11 @@ public:
     void setNickname(std::string nickname);
     void setPhoneNumber(std::string phoneNumber);
     void setDarkestSecret(std::string darkestSecret);
-    std::string getFirstName();
-    std::string getLastName();
-    std::string getNickname();
-    std::string getPhoneNumber();
-    std::string getDarkestSecret();
+    std::string getFirstName() const;
+    std::string getLastName() const;
+    std::string getNickname() const;
+    std::string getPhoneNumber() const;
+    std::string getDarkestSecret() const;
     void printContact() const;
 };
 
