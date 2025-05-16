@@ -9,9 +9,17 @@ std::string truncateText(std::string text) {
 
 std::string getNonEmptyString(const std::string& message) {
     std::string input;
+	size_t i, j;
     while (true) {
         std::cout << message;
         std::getline(std::cin, input);
+		i = input.find_first_not_of("\t\r\n ");
+		j = input.find_last_not_of("\t\r\n ");
+		if (i != std::string::npos) {
+			input = input.substr(i, j - i + 1);
+		} else {
+			input.clear();
+		}
         if (input.empty()) {
             std::cout << "This field cannot be empty. Try again." << std::endl;
         } else {
