@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.cpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iatopchu <iatopchu@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/16 13:19:07 by iatopchu          #+#    #+#             */
+/*   Updated: 2025/05/16 17:04:13 by iatopchu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "utils.hpp"
 
 std::string truncateText(std::string text) {
@@ -13,6 +25,10 @@ std::string getNonEmptyString(const std::string& message) {
     while (true) {
         std::cout << message;
         std::getline(std::cin, input);
+		if (std::cin.eof()) {
+            std::cout << std::endl << "How dare you? Exiting..." << std::endl;
+            return("");
+        }
 		i = input.find_first_not_of("\t\r\n ");
 		j = input.find_last_not_of("\t\r\n ");
 		if (i != std::string::npos) {
@@ -24,7 +40,7 @@ std::string getNonEmptyString(const std::string& message) {
             std::cout << "This field cannot be empty. Try again." << std::endl;
         } else {
             return (input);
-        }   
+        }
     }
 }
 
@@ -32,7 +48,7 @@ void printSeparator() {
     std::cout << "--------------------------------------------" << std::endl;
 }
 
-bool is_digits(const std::string &str)
+bool hasOnlyDigits(const std::string &str)
 {
     return str.find_first_not_of("0123456789") == std::string::npos;
 }
@@ -41,7 +57,10 @@ std::string getValidPhoneNumber() {
     std::string number;
     while (true) {
         number = getNonEmptyString("Enter your phone number: ");
-        if (is_digits(number)) {
+		if (number == "") {
+			return "";
+		}
+        if (hasOnlyDigits(number)) {
             return number;
         } else {
             std::cout << "Invalid phone number. Try again." << std::endl;
