@@ -6,7 +6,7 @@
 /*   By: iatopchu <iatopchu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 13:18:59 by iatopchu          #+#    #+#             */
-/*   Updated: 2025/05/16 17:12:12 by iatopchu         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:09:27 by iatopchu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ PhoneBook::~PhoneBook() {
 int PhoneBook::addContact() {
     Contact newContact;
     
-	std::string fname = getNonEmptyString("Enter your first name: ");
+	std::string fname = getValidName("first");
 	if (fname == "") {
 		return (-1);
 	}
     newContact.setFirstName(fname);
 	
-	std::string lname = getNonEmptyString("Enter your last name: ");
+	std::string lname = getValidName("last");
 	if (lname == "") {
 		return (-1);
 	}
@@ -81,15 +81,23 @@ int PhoneBook::searchContact() {
             std::cout << std::endl << "How dare you? Exiting..." << std::endl;
             return (-1);
         }
+		
+		if (detectCinFail()) {
+			std::cout << "ATTENTION: Input was not a number. Try again." << std::endl;
+			continue;
+		}
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		
         if (userIndex == -1) {
             std::cout << "Exiting search..." << std::endl;
             break;
-        } else if (userIndex < 0 || userIndex >= this->index || userIndex >= 8) {
-            std::cout << "Invalid index. Try again." << std::endl;
-        } else {
-            this->contacts[userIndex].printContact();
-            break;
         }
+		if (userIndex < -1 || userIndex >= this->index || userIndex >= 8) {
+            std::cout << "ATTENTION: Invalid index. Try again." << std::endl;
+			continue;
+        }
+		this->contacts[userIndex].printContact();
+		break;
     }
 	return (0);
 }

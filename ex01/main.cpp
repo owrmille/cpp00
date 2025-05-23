@@ -6,7 +6,7 @@
 /*   By: iatopchu <iatopchu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 13:18:55 by iatopchu          #+#    #+#             */
-/*   Updated: 2025/05/16 17:11:58 by iatopchu         ###   ########.fr       */
+/*   Updated: 2025/05/23 12:17:07 by iatopchu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
             }
         }
     } else {
-        std::cout << "Error: Invalid number of arguments." << std::endl;
+        std::cout << "ATTENTION: Invalid number of arguments." << std::endl;
     }
     (void)argv;
     return (0);

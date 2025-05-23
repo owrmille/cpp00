@@ -6,13 +6,22 @@
 /*   By: iatopchu <iatopchu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 13:19:07 by iatopchu          #+#    #+#             */
-/*   Updated: 2025/05/16 17:04:13 by iatopchu         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:02:09 by iatopchu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.hpp"
 
-std::string truncateText(std::string text) {
+bool detectCinFail(void) {
+	if (std::cin.fail()) {
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		return (true);
+	}
+	return (false);
+}
+
+std::string truncateText(const std::string &text) {
     if (text.length() > 10) {
         return text.substr(0, 9) + ".";
     }
@@ -53,6 +62,11 @@ bool hasOnlyDigits(const std::string &str)
     return str.find_first_not_of("0123456789") == std::string::npos;
 }
 
+bool hasOnlyLetters(const std::string &str)
+{
+    return str.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") == std::string::npos;
+}
+
 std::string getValidPhoneNumber() {
     std::string number;
     while (true) {
@@ -63,7 +77,26 @@ std::string getValidPhoneNumber() {
         if (hasOnlyDigits(number)) {
             return number;
         } else {
-            std::cout << "Invalid phone number. Try again." << std::endl;
+            std::cout << "ATTENTION: Invalid phone number. Try again." << std::endl;
+        }
+    }   
+}
+
+std::string getValidName(const std::string &nameType) {
+    std::string name;
+    while (true) {
+        if (!nameType.compare("first")) {
+			name = getNonEmptyString("Enter your first name: ");
+		} else if (!nameType.compare("last")) {
+			name = getNonEmptyString("Enter your last name: ");
+		}
+		if (name == "") {
+			return "";
+		}
+        if (hasOnlyLetters(name)) {
+            return name;
+        } else {
+            std::cout << "ATTENTION: Invalid name. Try again." << std::endl;
         }
     }   
 }
